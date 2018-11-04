@@ -5,9 +5,16 @@ namespace ObserverPatternDemo.Implemantation.Observers
 {
     public class CurrentConditionsReport : IObserver<WeatherInfo>
     {
+		private WeatherInfo _weatherInfo;
+
         public void Update(IObservable<WeatherInfo> sender, WeatherInfo info)
         {
-            throw new NotImplementedException();
+			_weatherInfo = info;
         }
-    }
+
+		public override string ToString()
+		{
+			return $"{_weatherInfo}";
+		}
+	}
 }
