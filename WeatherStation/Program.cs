@@ -17,8 +17,8 @@ namespace WeatherStation
 			weather.Register(report);
 			weather.Register(currentReport);
 
-			weather.Data = new WeatherInfo(10, 10, 10);
-			weather.Data = new WeatherInfo(2, 15, 10);
+			weather.CheckData();
+			weather.CheckData();
 
 			Console.WriteLine(currentReport.ToString());
 			Console.WriteLine();

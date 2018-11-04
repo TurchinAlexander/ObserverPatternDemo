@@ -5,26 +5,28 @@ namespace ObserverPatternDemo.Implemantation.Observable
 {
     public class WeatherData : IObservable<WeatherInfo>
     {
+		Random random = new Random();
 		private WeatherInfo _weatherInfo;
-
-		public WeatherInfo Data
-		{
-			get { return _weatherInfo; }
-			set
-			{
-				Notify(this, value);
-				_weatherInfo = value;
-			}
-		}
-
 		private List<IObserver<WeatherInfo>> listSubs = new List<IObserver<WeatherInfo>>();
+
+		public void CheckData()
+		{
+			int temperature = random.Next(0, 30);
+			int humidity = random.Next(0, 100);
+			int pressure = random.Next(0, 10000);
+
+			_weatherInfo = new WeatherInfo(temperature, humidity, pressure);
+
+			IObservable<WeatherInfo> temp = this;
+			temp.Notify(this, _weatherInfo);
+		}
 
 		/// <summary>
 		/// Notify all subscribers about new state.
 		/// </summary>
 		/// <param name="sender">The element with new state.</param>
 		/// <param name="info">The state.</param>
-        public void Notify(IObservable<WeatherInfo> sender, WeatherInfo info)
+        void IObservable<WeatherInfo>.Notify(IObservable<WeatherInfo> sender, WeatherInfo info)
         {
 			for (int i = 0; i < listSubs.Count; i++)
 			{
