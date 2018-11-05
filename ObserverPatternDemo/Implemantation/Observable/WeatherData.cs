@@ -17,8 +17,7 @@ namespace ObserverPatternDemo.Implemantation.Observable
 
 			_weatherInfo = new WeatherInfo(temperature, humidity, pressure);
 
-			IObservable<WeatherInfo> temp = this;
-			temp.Notify(this, _weatherInfo);
+			((IObservable<WeatherInfo>)this).Notify(this, _weatherInfo);
 		}
 
 		/// <summary>

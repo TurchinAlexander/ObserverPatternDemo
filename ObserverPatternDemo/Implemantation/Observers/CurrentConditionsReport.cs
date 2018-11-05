@@ -8,7 +8,7 @@ namespace ObserverPatternDemo.Implemantation.Observers
 		private WeatherInfo _weatherInfo;
 		private IObservable<WeatherInfo> _sender;
 
-		public void Update(IObservable<WeatherInfo> sender, WeatherInfo info)
+		void IObserver<WeatherInfo>.Update(IObservable<WeatherInfo> sender, WeatherInfo info)
         {
 			_weatherInfo = info;
 			_sender = sender;

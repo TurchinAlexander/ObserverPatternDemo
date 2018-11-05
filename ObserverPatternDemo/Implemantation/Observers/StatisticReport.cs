@@ -9,7 +9,7 @@ namespace ObserverPatternDemo.Implemantation.Observers
     {
 		List<WeatherInfo> listWeatherInfo = new List<WeatherInfo>();
 
-        public void Update(IObservable<WeatherInfo> sender, WeatherInfo info)
+        void IObserver<WeatherInfo>.Update(IObservable<WeatherInfo> sender, WeatherInfo info)
         {
 			listWeatherInfo.Add(info);
         }
