@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 
 using ObserverPatternDemo.Implemantation.Observable;
 using ObserverPatternDemo.Implemantation.Observers;
@@ -17,11 +18,21 @@ namespace WeatherStation
 			weather.Register(report);
 			weather.Register(currentReport);
 
-			weather.CheckData();
-			weather.CheckData();
+			Console.WriteLine("Press ESC to stop.");
+			int sleepTime = 1000;
+			do
+			{
+				while (!Console.KeyAvailable)
+				{
+					weather.CheckData();
+					Thread.Sleep(sleepTime);
+					Console.WriteLine(currentReport.ToString());
+				}
+			}
+			while (Console.ReadKey(true).Key != ConsoleKey.Escape);
 
-			Console.WriteLine(currentReport.ToString());
-			Console.WriteLine();
+
+			Console.WriteLine("All records:");
 			Console.WriteLine(report.ToString());
 
 			Console.ReadKey();
