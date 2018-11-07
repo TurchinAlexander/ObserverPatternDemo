@@ -9,7 +9,17 @@ namespace ObserverPatternDemo.Implemantation.Observers
     {
 		List<WeatherInfo> listWeatherInfo = new List<WeatherInfo>();
 
-        void IObserver<WeatherInfo>.Update(IObservable<WeatherInfo> sender, WeatherInfo info)
+		public void StartMail(IObservable<WeatherInfo> observable)
+		{
+			observable.Register(this);
+		}
+
+		public void StopMail(IObservable<WeatherInfo> observable)
+		{
+			observable.Unregister(this);
+		}
+
+		void IObserver<WeatherInfo>.Update(object sender, WeatherInfo info)
         {
 			listWeatherInfo.Add(info);
         }

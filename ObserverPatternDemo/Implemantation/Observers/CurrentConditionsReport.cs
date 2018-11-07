@@ -6,9 +6,19 @@ namespace ObserverPatternDemo.Implemantation.Observers
     public class CurrentConditionsReport : IObserver<WeatherInfo>
     {
 		private WeatherInfo _weatherInfo;
-		private IObservable<WeatherInfo> _sender;
+		private object _sender;
 
-		void IObserver<WeatherInfo>.Update(IObservable<WeatherInfo> sender, WeatherInfo info)
+		public void StartMail(IObservable<WeatherInfo> observable)
+		{
+			observable.Register(this);
+		}
+
+		public void StopMail(IObservable<WeatherInfo> observable)
+		{
+			observable.Unregister(this);
+		}
+
+		void IObserver<WeatherInfo>.Update(object sender, WeatherInfo info)
         {
 			_weatherInfo = info;
 			_sender = sender;

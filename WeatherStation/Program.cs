@@ -15,21 +15,22 @@ namespace WeatherStation
 			StatisticReport report = new StatisticReport();
 			CurrentConditionsReport currentReport = new CurrentConditionsReport();
 
-			weather.Register(report);
-			weather.Register(currentReport);
+			report.StartMail(weather);
+			currentReport.StartMail(weather);
 
-			Console.WriteLine("Press ESC to stop.");
-			int sleepTime = 1000;
+			ConsoleKey command;
+			Console.WriteLine("Press Q to watch current weather or ESC to stop.");
 			do
 			{
-				while (!Console.KeyAvailable)
+				while(!Console.KeyAvailable) { }
+				command = Console.ReadKey(true).Key;
+
+				if (command == ConsoleKey.Q)
 				{
-					weather.CheckData();
-					Thread.Sleep(sleepTime);
-					Console.WriteLine(currentReport.ToString());
+					Console.WriteLine(currentReport);
 				}
 			}
-			while (Console.ReadKey(true).Key != ConsoleKey.Escape);
+			while (command != ConsoleKey.Escape);
 
 
 			Console.WriteLine("All records:");
