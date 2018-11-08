@@ -3,11 +3,12 @@ using System.Timers;
 
 namespace ObserverPatternDemo.Implemantation.Observable
 {
-    public class WeatherData : IObservable<WeatherInfo>
+    public class WeatherData
     {
+		public event EventHandler<WeatherInfo> NewMail = delegate { };
+
 		private Random random = new Random();
 		private WeatherInfo _weatherInfo;
-		private event Action<object, WeatherInfo> notifier = delegate { };
 
 		public WeatherData()
 		{
@@ -26,31 +27,8 @@ namespace ObserverPatternDemo.Implemantation.Observable
 		/// <param name="info">The state.</param>
         protected virtual void Notify(WeatherInfo info)
         {
-			notifier(this, info);
+			NewMail(this, info);
         }
-
-		void IObservable<WeatherInfo>.Notify(WeatherInfo info)
-		{
-			Notify(info);
-		}
-
-		/// <summary>
-		/// Register new subscriber.
-		/// </summary>
-		/// <param name="observer">New subscriber.</param>
-        public void Register(IObserver<WeatherInfo> observer)
-        {
-			notifier += observer.Update;
-        }
-
-		/// <summary>
-		/// Remove the subscriber.
-		/// </summary>
-		/// <param name="observer">The subscriber.</param>
-		public void Unregister(IObserver<WeatherInfo> observer)
-        {
-			notifier -= observer.Update;
-		}
 
 		private void GenerateNewInfo()
 		{
@@ -61,7 +39,7 @@ namespace ObserverPatternDemo.Implemantation.Observable
 			_weatherInfo = new WeatherInfo(temperature, humidity, pressure);
 		}
 
-		private void OnTimerEvent(Object source, ElapsedEventArgs e)
+		protected virtual void OnTimerEvent(Object source, ElapsedEventArgs e)
 		{
 			GenerateNewInfo();
 			Notify(_weatherInfo);

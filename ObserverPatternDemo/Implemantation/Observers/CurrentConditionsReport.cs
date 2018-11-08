@@ -3,22 +3,17 @@ using System;
 
 namespace ObserverPatternDemo.Implemantation.Observers
 {
-    public class CurrentConditionsReport : IObserver<WeatherInfo>
-    {
+    public class CurrentConditionsReport
+	{
 		private WeatherInfo _weatherInfo;
 		private object _sender;
 
-		public void StartMail(IObservable<WeatherInfo> observable)
-		{
-			observable.Register(this);
-		}
-
-		public void StopMail(IObservable<WeatherInfo> observable)
-		{
-			observable.Unregister(this);
-		}
-
-		void IObserver<WeatherInfo>.Update(object sender, WeatherInfo info)
+		/// <summary>
+		/// Method to take new mail with WeatherInfo.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="info"></param>
+		public void Update(object sender, WeatherInfo info)
         {
 			_weatherInfo = info;
 			_sender = sender;

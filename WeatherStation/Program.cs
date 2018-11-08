@@ -15,8 +15,8 @@ namespace WeatherStation
 			StatisticReport report = new StatisticReport();
 			CurrentConditionsReport currentReport = new CurrentConditionsReport();
 
-			report.StartMail(weather);
-			currentReport.StartMail(weather);
+			weather.NewMail += report.Update;
+			weather.NewMail += currentReport.Update;
 
 			ConsoleKey command;
 			Console.WriteLine("Press Q to watch current weather or ESC to stop.");

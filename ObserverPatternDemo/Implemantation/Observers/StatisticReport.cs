@@ -5,21 +5,16 @@ using ObserverPatternDemo.Implemantation.Observable;
 
 namespace ObserverPatternDemo.Implemantation.Observers
 {
-    public class StatisticReport : IObserver<WeatherInfo>
+    public class StatisticReport
     {
 		List<WeatherInfo> listWeatherInfo = new List<WeatherInfo>();
 
-		public void StartMail(IObservable<WeatherInfo> observable)
-		{
-			observable.Register(this);
-		}
-
-		public void StopMail(IObservable<WeatherInfo> observable)
-		{
-			observable.Unregister(this);
-		}
-
-		void IObserver<WeatherInfo>.Update(object sender, WeatherInfo info)
+		/// <summary>
+		/// Method to take new mail with WeatherInfo.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="info"></param>
+		public void Update(object sender, WeatherInfo info)
         {
 			listWeatherInfo.Add(info);
         }
